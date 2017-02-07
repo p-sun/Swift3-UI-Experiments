@@ -82,6 +82,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             let cell = tableView.dequeueReusableCell(withIdentifier: "BaselineAlignedCell", for: indexPath)
             return cell
             
+        case 9:
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: "LabelInStackCell", for: indexPath)
+            return cell
+            
         default:
             
             // An empty stack view
