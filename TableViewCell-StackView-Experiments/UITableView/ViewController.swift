@@ -10,6 +10,13 @@ import UIKit
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
+    override func viewDidLoad() {
+         super.viewDidLoad()
+        
+        tableView.estimatedRowHeight = 60
+        tableView.rowHeight = UITableViewAutomaticDimension
+    }
+    
     // MARK: - IBOutlets
     @IBOutlet weak var tableView: UITableView!
 
@@ -76,15 +83,20 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
             let cell = tableView.dequeueReusableCell(withIdentifier: "LeftAccessoryCell", for: indexPath)
             return cell
-            
+
         case 8:
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "BaselineAlignedCell", for: indexPath)
             return cell
             
-        case 9:
+
+//        case 9:
+//            
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "BaselineCellProgramically", for: indexPath) as! BaselineCellProgramically
+//            return cell
             
-            let cell = tableView.dequeueReusableCell(withIdentifier: "LabelInStackCell", for: indexPath)
+        case 10:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "NestedViewsCell", for: indexPath) as! NestedViewsCell
             return cell
             
         default:
