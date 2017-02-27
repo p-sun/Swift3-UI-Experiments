@@ -25,8 +25,10 @@ class NestedViewsCell: UITableViewCell {
         let label = UILabel()
         label.backgroundColor = .yellow
         label.numberOfLines = 0
-        label.text = "This ia programically created label, nested inside a UIView."
+        label.text = "This ia programically created yellow label, nested inside a blue UIView with layout margins."
         view.addSubview(label)
-        label.constrainToFillView(view)
+        
+        view.layoutMargins = UIEdgeInsetsMake(10, 10, 10, 10)
+        label.constrainToFillView(view, respectingLayoutMargins: true) // uses the layout margins
     }
 }
