@@ -89,14 +89,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             let cell = tableView.dequeueReusableCell(withIdentifier: "BaselineAlignedCell", for: indexPath)
             return cell
             
-
-//        case 9:
+//        case 9: // This one is broken
 //            
 //            let cell = tableView.dequeueReusableCell(withIdentifier: "BaselineCellProgramically", for: indexPath) as! BaselineCellProgramically
 //            return cell
             
-        case 10:
+        case 9:
             let cell = tableView.dequeueReusableCell(withIdentifier: "NestedViewsCell", for: indexPath) as! NestedViewsCell
+            return cell
+            
+        case 10:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ImageLabelCell", for: indexPath) as! ImageLabelCell
             return cell
             
         default:
