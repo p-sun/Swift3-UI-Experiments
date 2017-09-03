@@ -1,9 +1,9 @@
 //
 //  AppDelegate.swift
-//  ScrollableResizingContainers
+//  SplitViewControllerStoryboardless
 //
-//  Created by Paige Sun on 2017-03-07.
-//  Copyright © 2017 Paige Sun. All rights reserved.
+//  Created by Pei Sun on 2017-09-02.
+//  Copyright © 2017 Pei Sun. All rights reserved.
 //
 
 import UIKit

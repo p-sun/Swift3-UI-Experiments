@@ -1,15 +1,15 @@
 //
-//  ScrollableResizingContainersTests.swift
-//  ScrollableResizingContainersTests
+//  SplitViewControllerStoryboardlessTests.swift
+//  SplitViewControllerStoryboardlessTests
 //
-//  Created by Paige Sun on 2017-03-07.
-//  Copyright © 2017 Paige Sun. All rights reserved.
+//  Created by Pei Sun on 2017-09-02.
+//  Copyright © 2017 Pei Sun. All rights reserved.
 //
 
 import XCTest
-@testable import ScrollableResizingContainers
+@testable import SplitViewControllerStoryboardless
 
-class ScrollableResizingContainersTests: XCTestCase {
+class SplitViewControllerStoryboardlessTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
