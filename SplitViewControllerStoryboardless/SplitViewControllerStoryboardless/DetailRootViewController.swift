@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  DetailRootViewController.swift
 //  SplitViewControllerStoryboardless
 //
 //  Created by Pei Sun on 2017-09-02.
@@ -8,8 +8,7 @@
 
 import UIKit
 
-class DetailViewController: UIViewController {
-    private var headerView = UIView()
+class DetailRootViewController: UIViewController {
     private var label = UILabel()
     let text: String
     
@@ -28,13 +27,14 @@ class DetailViewController: UIViewController {
         view.backgroundColor = #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)
 
         view.addSubview(label)
-        label.text = text
-        label.textColor = .white
-        label.font = UIFont.systemFont(ofSize: 22)
         setupLabel()
     }
     
     private func setupLabel() {
+        label.text = text
+        label.textColor = .white
+        label.font = UIFont.systemFont(ofSize: 22)
+        
         label.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
