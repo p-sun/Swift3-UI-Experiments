@@ -34,7 +34,7 @@ class ListViewController: UITableViewController {
         case (true, _):
             cellText = "Reset detail controller stack"
         case (false, _):
-            cellText = "Show detail controller"
+            cellText = "Show controller on detail stack"
         }
         
         cell.textLabel?.text = cellText
@@ -42,7 +42,7 @@ class ListViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Navigation Stack Count \(navigationStackCount)"
+        return "This stack has \(navigationStackCount) controller(s)"
     }
     
     // MARK: - Segue
@@ -54,6 +54,7 @@ class ListViewController: UITableViewController {
         if indexPath.row == 0 {
             show(listController, sender: self)
         } else {
+            // Call this from the master or detail navigation stack to show a view controller on the detail stack.
             showNewDetailViewController(listController, sender: self)
         }
     }

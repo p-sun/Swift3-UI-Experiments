@@ -14,6 +14,7 @@
 		9BEA8B1B1F5B94CA00319E1D /* SplitViewControllerStoryboardlessTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEA8B1A1F5B94CA00319E1D /* SplitViewControllerStoryboardlessTests.swift */; };
 		9BEA8B261F5B94CA00319E1D /* SplitViewControllerStoryboardlessUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEA8B251F5B94CA00319E1D /* SplitViewControllerStoryboardlessUITests.swift */; };
 		9BEA8B451F5C7EC400319E1D /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEA8B441F5C7EC400319E1D /* ListViewController.swift */; };
+		9BEA8B491F5D22E600319E1D /* SplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEA8B481F5D22E600319E1D /* SplitViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		9BEA8B251F5B94CA00319E1D /* SplitViewControllerStoryboardlessUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitViewControllerStoryboardlessUITests.swift; sourceTree = "<group>"; };
 		9BEA8B271F5B94CA00319E1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9BEA8B441F5C7EC400319E1D /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
+		9BEA8B481F5D22E600319E1D /* SplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplitViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				9BEA8B051F5B94CA00319E1D /* AppDelegate.swift */,
+				9BEA8B481F5D22E600319E1D /* SplitViewController.swift */,
 				9BEA8B441F5C7EC400319E1D /* ListViewController.swift */,
 				9BEA8B071F5B94CA00319E1D /* DetailRootViewController.swift */,
 				9BEA8B0C1F5B94CA00319E1D /* Assets.xcassets */,
@@ -261,6 +264,7 @@
 				9BEA8B081F5B94CA00319E1D /* DetailRootViewController.swift in Sources */,
 				9BEA8B061F5B94CA00319E1D /* AppDelegate.swift in Sources */,
 				9BEA8B451F5C7EC400319E1D /* ListViewController.swift in Sources */,
+				9BEA8B491F5D22E600319E1D /* SplitViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
