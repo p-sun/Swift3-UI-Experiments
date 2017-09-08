@@ -24,7 +24,7 @@ class SplitViewController: UISplitViewController {
         let masterSender: Bool = masterViewController == sender || masterNavigationController.topViewController == sender
         
         // If we're collapsed, then the topViewController of the masterNavigationController *can* be the detail navigation controller (but only if details are being shown)
-        let detailNavigationController = (detailViewController ?? masterNavigationController.topViewController) as? UINavigationController
+        let detailNavigationController = (detail123ViewController ?? masterNavigationController.topViewController) as? UINavigationController
         
         if let detailNavigationController = detailNavigationController {
             if masterSender {
@@ -38,6 +38,38 @@ class SplitViewController: UISplitViewController {
             showDetailViewController(UINavigationController(rootViewController: vc), sender: sender)
         }
     }
+    
+    override func showNewDetailViewControllerNoNavigationController(_ vc: UIViewController, sender: UIViewController?) {
+        guard let masterNavigationController = masterViewController as? UINavigationController else {
+            // Should never happen,
+            showDetailViewController(vc, sender: sender)
+            return
+        }
+        
+        // Check whether the sender is the master view
+        let masterSender: Bool = masterViewController == sender || masterNavigationController.topViewController == sender
+        
+        // If we're collapsed, then the topViewController of the masterNavigationController *can* be the detail navigation controller (but only if details are being shown)
+        let detailNavigationController = (detail123ViewController ?? masterNavigationController.topViewController) as? UINavigationController
+        
+        if detailNavigationController != nil {
+            if masterSender {
+                viewControllers.popLast()
+                showDetailViewController(vc, sender: sender)
+            } else {
+                if isCollapsed {
+                    var current = masterNavigationController.viewControllers
+                    current.removeLast()
+                    masterNavigationController.viewControllers = current + [vc]
+                } else {
+                    viewControllers = [masterNavigationController] + [vc]
+                }
+            }
+        } else {
+            showDetailViewController(vc, sender: sender)
+        }
+    }
+    
 }
 
 extension UISplitViewController {
@@ -45,8 +77,21 @@ extension UISplitViewController {
         return viewControllers.first
     }
     
-    var detailViewController: UIViewController? {
-        return viewControllers.count > 1 ? viewControllers.last : nil
+    // rename to detailNavigationController?
+    var detail123ViewController: UIViewController? { // can't call this "detailViewController" b/c it overrides one of Apple's variable name.
+//        return viewControllers.count > 1 ? viewControllers.last : nil
+        
+        if viewControllers.count > 1 {
+            return viewControllers.last
+        } else if let masterNavigationController = masterViewController as? UINavigationController, isCollapsed, masterNavigationController.viewControllers.count > 1 {
+            // The masterNavigationController's topViewController *can* be the detail navigation controller
+            // If there is ONLY MASTER: this will give masterNavigationController.
+            // If there is BOTH MASTER & DETAIL, this will give detailNavigationController
+            
+            return masterNavigationController.topViewController
+        }
+        return nil
+
     }
 }
 
@@ -80,4 +125,11 @@ extension UIViewController {
             splitController.showNewDetailViewController(vc, sender: sender)
         }
     }
+    
+    func showNewDetailViewControllerNoNavigationController(_ vc: UIViewController, sender: UIViewController?) {
+        if let splitController = splitViewController as? SplitViewController {
+            splitController.showNewDetailViewControllerNoNavigationController(vc, sender: sender)
+        }
+    }
+
 }

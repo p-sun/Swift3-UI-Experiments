@@ -18,7 +18,8 @@ private extension UIViewController {
         if isMasterViewController {
             return (splitViewController?.masterViewController as? UINavigationController)?.viewControllers.count ?? 0
         } else {
-            return (splitViewController?.detailViewController as? UINavigationController)?.viewControllers.count ?? 0
+            return (splitViewController?.detail123ViewController as? UINavigationController)?.viewControllers.count
+                ?? 0
         }
     }
 }
@@ -43,13 +44,7 @@ class ListViewController: UITableViewController {
         
         setMenuItems()
     }
-    
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        
-//        menuItems = []
-//        setMenuItems()
-//        tableView.reloadData()
-    }
+
     // MARK: - UITableViewDelegate
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -112,12 +107,12 @@ class ListViewController: UITableViewController {
         
         menuItems.append(
             CellState(
-                text: "Remove detail stack", // TODO
+                text: "Remove detail stack",
                 onCellSelection: { [weak self] in
                     guard let strongSelf = self else { return }
-                    
-                    let detailWithNoNavController = DetailRootViewController("Root Details Controller") // TODO
-                    strongSelf.showDetailViewController(detailWithNoNavController, sender: strongSelf)
+
+                    let detailWithNoNavController = DetailRootViewController("Root Details Controller")
+                    strongSelf.showNewDetailViewControllerNoNavigationController(detailWithNoNavController, sender: strongSelf)
             })
         )
     }
@@ -134,4 +129,3 @@ private extension String {
         return nil
     }
 }
-
