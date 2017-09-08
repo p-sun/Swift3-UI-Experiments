@@ -44,6 +44,12 @@ class ListViewController: UITableViewController {
         setMenuItems()
     }
     
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        
+//        menuItems = []
+//        setMenuItems()
+//        tableView.reloadData()
+    }
     // MARK: - UITableViewDelegate
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -58,6 +64,11 @@ class ListViewController: UITableViewController {
         let cell = UITableViewCell()
         cell.textLabel?.text = menuItems[indexPath.row].text
         cell.textLabel?.numberOfLines = 0
+        
+        if indexPath.row == 0 {
+            cell.backgroundColor = UIColor(red: CGFloat(drand48()), green: CGFloat(drand48()), blue: CGFloat(drand48()), alpha: 1.0)
+        }
+        
         return cell
     }
     

@@ -50,6 +50,30 @@ extension UISplitViewController {
     }
 }
 
+class MasterNavigationController: UINavigationController {
+    override func separateSecondaryViewController(for splitViewController: UISplitViewController) -> UIViewController? {
+        
+        print("************************")
+        print("self:")
+        print(viewControllers)
+        let bottomNavController = viewControllers.last as? UINavigationController
+        print("bottom nav controller's stack:")
+        print(bottomNavController?.viewControllers)
+        
+        // By default this method pops and returns the view controller on the top of its navigation stack.
+        // 
+        if viewControllers.count > 1
+            && viewControllers.last is UINavigationController
+            || viewControllers.last is DetailRootViewController {
+
+            return viewControllers.popLast()
+        } else {
+            return nil
+        }
+    }
+}
+
+
 extension UIViewController {
     func showNewDetailViewController(_ vc: UIViewController, sender: UIViewController?) {
         if let splitController = splitViewController as? SplitViewController {

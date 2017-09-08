@@ -14,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         let listViewController = ListViewController()
-        let master = UINavigationController(rootViewController: listViewController)
+        let master = MasterNavigationController(rootViewController: listViewController)
         let detail = DetailRootViewController("Root Details Controller")
         let splitViewController = SplitViewController()
         splitViewController.viewControllers = [master, detail]
