@@ -26,14 +26,7 @@ private extension UIViewController {
 
 struct CellState {
     let text: String
-    let backgroundColor: UIColor?
     let onCellSelection: (() -> ())
-    
-    init(text: String, backgroundColor: UIColor? = nil, onCellSelection: @escaping (() -> ())) {
-        self.text = text
-        self.backgroundColor = backgroundColor
-        self.onCellSelection = onCellSelection
-    }
 }
 
 class ListViewController: UITableViewController {
@@ -63,7 +56,10 @@ class ListViewController: UITableViewController {
         let cell = UITableViewCell()
         cell.textLabel?.text = menuItems[indexPath.row].text
         cell.textLabel?.numberOfLines = 0
-        cell.backgroundColor = menuItems[indexPath.row].backgroundColor
+        
+        if indexPath.row == 0 {
+            cell.backgroundColor = UIColor(red: CGFloat(drand48()), green: CGFloat(drand48()), blue: CGFloat(drand48()), alpha: 1.0)
+        }
         
         return cell
     }
@@ -84,9 +80,7 @@ class ListViewController: UITableViewController {
         menuItems.append(
             CellState(
                 text: stackCount + "\n" + instanceInfo,
-                backgroundColor: UIColor(red: CGFloat(drand48()), green: CGFloat(drand48()), blue: CGFloat(drand48()), alpha: 1.0),
-                onCellSelection: {}
-            )
+                onCellSelection: {})
         )
         
         menuItems.append(
@@ -105,6 +99,17 @@ class ListViewController: UITableViewController {
                 onCellSelection: { [weak self] in
                     guard let strongSelf = self else { return }
                     strongSelf.showNewDetailViewController(ListViewController(), sender: strongSelf)
+            })
+        )
+        
+        menuItems.append(
+            CellState(
+                text: "Remove detail stack",
+                onCellSelection: { [weak self] in
+                    guard let strongSelf = self else { return }
+
+                    let detailWithNoNavController = DetailRootViewController("Root Details Controller")
+                    strongSelf.showNewDetailViewControllerNoNavigationController(detailWithNoNavController, sender: strongSelf)
             })
         )
     }

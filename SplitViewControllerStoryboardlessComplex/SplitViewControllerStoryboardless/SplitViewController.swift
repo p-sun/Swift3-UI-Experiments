@@ -38,6 +38,38 @@ class SplitViewController: UISplitViewController {
             showDetailViewController(UINavigationController(rootViewController: vc), sender: sender)
         }
     }
+    
+    override func showNewDetailViewControllerNoNavigationController(_ vc: UIViewController, sender: UIViewController?) {
+        guard let masterNavigationController = masterViewController as? UINavigationController else {
+            // Should never happen,
+            showDetailViewController(vc, sender: sender)
+            return
+        }
+        
+        // Check whether the sender is the master view
+        let masterSender: Bool = masterViewController == sender || masterNavigationController.topViewController == sender
+        
+        // If we're collapsed, then the topViewController of the masterNavigationController *can* be the detail navigation controller (but only if details are being shown)
+        let detailNavigationController = (detail123ViewController ?? masterNavigationController.topViewController) as? UINavigationController
+        
+        if detailNavigationController != nil {
+            if masterSender {
+                viewControllers.popLast()
+                showDetailViewController(vc, sender: sender)
+            } else {
+                if isCollapsed {
+                    var current = masterNavigationController.viewControllers
+                    current.removeLast()
+                    masterNavigationController.viewControllers = current + [vc]
+                } else {
+                    viewControllers = [masterNavigationController] + [vc]
+                }
+            }
+        } else {
+            showDetailViewController(vc, sender: sender)
+        }
+    }
+    
 }
 
 extension UISplitViewController {
@@ -93,4 +125,11 @@ extension UIViewController {
             splitController.showNewDetailViewController(vc, sender: sender)
         }
     }
+    
+    func showNewDetailViewControllerNoNavigationController(_ vc: UIViewController, sender: UIViewController?) {
+        if let splitController = splitViewController as? SplitViewController {
+            splitController.showNewDetailViewControllerNoNavigationController(vc, sender: sender)
+        }
+    }
+
 }
