@@ -9,57 +9,6 @@
 import Foundation
 import UIKit
 
-class ListViewController: UITableViewController {
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        title = isMasterViewController ? "Master View Controller" : "Detail View Controller"
-    }
-
-    // MARK: - UITableViewDelegate
-    
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
-    }
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        let cellText: String
-        switch (isMasterViewController, indexPath.row) {
-        case (_, 0):
-            cellText = "Show controller on current stack"
-        case (true, _):
-            cellText = "Reset detail controller stack"
-        case (false, _):
-            cellText = "Show controller on detail stack"
-        }
-        
-        cell.textLabel?.text = cellText
-        return cell
-    }
-    
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "This stack has \(navigationStackCount) controller(s)"
-    }
-    
-    // MARK: - Segue
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-
-        let listController = ListViewController()
-        if indexPath.row == 0 {
-            show(listController, sender: self)
-        } else {
-            // Call this from the master or detail navigation stack to show a view controller on the detail stack.
-            showNewDetailViewController(listController, sender: self)
-        }
-    }
-}
-
 private extension UIViewController {
     var isMasterViewController: Bool {
         return self == (self.splitViewController?.masterViewController as? UINavigationController)?.topViewController
@@ -73,3 +22,105 @@ private extension UIViewController {
         }
     }
 }
+
+import Foundation
+import UIKit
+
+struct CellState {
+    let text: String
+    let onCellSelection: (() -> ())
+}
+
+class ListViewController: UITableViewController {
+    var menuItems: [CellState] = []
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        title = isMasterViewController ? "Master View Controller" : "Detail View Controller"
+        
+        tableView.estimatedRowHeight = 88
+        
+        setMenuItems()
+    }
+    
+    // MARK: - UITableViewDelegate
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return menuItems.count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell()
+        cell.textLabel?.text = menuItems[indexPath.row].text
+        cell.textLabel?.numberOfLines = 0
+        return cell
+    }
+    
+    // MARK: - Segue
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        menuItems[indexPath.row].onCellSelection()
+    }
+    
+    // MARK: - Set Menu
+    
+    private func setMenuItems() {
+        let stackCount = "This stack has \(navigationStackCount) controller(s)."
+        let instanceIdentifier = description.substring(between: Character(" "), until: Character(">")) ?? ""
+        let instanceInfo = "Current is \(instanceIdentifier)."
+        menuItems.append(
+            CellState(
+                text: stackCount + "\n" + instanceInfo,
+                onCellSelection: {})
+        )
+        
+        menuItems.append(
+            CellState(
+                text: "Show controller on current stack",
+                onCellSelection: { [weak self] in
+                    guard let strongSelf = self else { return }
+                    strongSelf.show(ListViewController(), sender: strongSelf)
+            })
+        )
+        
+        let menuLabel = isMasterViewController ? "Reset detail stack" : "Show controller on detail stack"
+        menuItems.append(
+            CellState(
+                text: menuLabel,
+                onCellSelection: { [weak self] in
+                    guard let strongSelf = self else { return }
+                    strongSelf.showNewDetailViewController(ListViewController(), sender: strongSelf)
+            })
+        )
+        
+        menuItems.append(
+            CellState(
+                text: "Remove detail stack", // TODO
+                onCellSelection: { [weak self] in
+                    guard let strongSelf = self else { return }
+                    
+                    let detailWithNoNavController = DetailRootViewController("Root Details Controller") // TODO
+                    strongSelf.showDetailViewController(detailWithNoNavController, sender: strongSelf)
+            })
+        )
+    }
+}
+
+private extension String {
+    // Returns the String between two characters, excluding the delimiters.
+    func substring(between start: Character, until end: Character) -> String? {
+        guard contains(end.description) else { return nil }
+        
+        if let match = range(of: "(?<=\(start))[^\(end)]+", options: .regularExpression) {
+            return substring(with: match)
+        }
+        return nil
+    }
+}
+
