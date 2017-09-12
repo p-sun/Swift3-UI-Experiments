@@ -1,5 +1,5 @@
 //
-//  DetailRootViewController.swift
+//  SingleLabelViewController.swift
 //  SplitViewControllerStoryboardless
 //
 //  Created by Pei Sun on 2017-09-02.
@@ -8,7 +8,8 @@
 
 import UIKit
 
-class DetailRootViewController: UIViewController {
+/// A green view controller with a single label centered in the middle.
+class SingleLabelViewController: UIViewController {
     private var label = UILabel()
     let text: String
     
@@ -23,9 +24,7 @@ class DetailRootViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.backgroundColor = #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)
-
         view.addSubview(label)
         setupLabel()
     }

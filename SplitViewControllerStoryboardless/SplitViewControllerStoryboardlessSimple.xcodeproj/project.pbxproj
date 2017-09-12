@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9BA9313A1F63A11D0051AE81 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA931391F63A11D0051AE81 /* String+Extensions.swift */; };
+		9BA9313C1F63A5760051AE81 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA9313B1F63A5760051AE81 /* MenuViewController.swift */; };
 		9BEA8B061F5B94CA00319E1D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEA8B051F5B94CA00319E1D /* AppDelegate.swift */; };
-		9BEA8B081F5B94CA00319E1D /* DetailRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEA8B071F5B94CA00319E1D /* DetailRootViewController.swift */; };
+		9BEA8B081F5B94CA00319E1D /* SingleLabelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEA8B071F5B94CA00319E1D /* SingleLabelViewController.swift */; };
 		9BEA8B0D1F5B94CA00319E1D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9BEA8B0C1F5B94CA00319E1D /* Assets.xcassets */; };
 		9BEA8B101F5B94CA00319E1D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9BEA8B0E1F5B94CA00319E1D /* LaunchScreen.storyboard */; };
 		9BEA8B1B1F5B94CA00319E1D /* SplitViewControllerStoryboardlessTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEA8B1A1F5B94CA00319E1D /* SplitViewControllerStoryboardlessTests.swift */; };
@@ -35,9 +37,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9BA931391F63A11D0051AE81 /* String+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
+		9BA9313B1F63A5760051AE81 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		9BEA8B021F5B94CA00319E1D /* SplitViewControllerStoryboardlessSimple.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SplitViewControllerStoryboardlessSimple.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BEA8B051F5B94CA00319E1D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		9BEA8B071F5B94CA00319E1D /* DetailRootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRootViewController.swift; sourceTree = "<group>"; };
+		9BEA8B071F5B94CA00319E1D /* SingleLabelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleLabelViewController.swift; sourceTree = "<group>"; };
 		9BEA8B0C1F5B94CA00319E1D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9BEA8B0F1F5B94CA00319E1D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9BEA8B111F5B94CA00319E1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -76,6 +80,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9B13C8BE1F68681E00F98557 /* Generic Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				9BEA8B071F5B94CA00319E1D /* SingleLabelViewController.swift */,
+				9BEA8B441F5C7EC400319E1D /* ListViewController.swift */,
+			);
+			name = "Generic Controllers";
+			sourceTree = "<group>";
+		};
+		9B13C8BF1F68687D00F98557 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				9BA931391F63A11D0051AE81 /* String+Extensions.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
 		9BEA8AF91F5B94CA00319E1D = {
 			isa = PBXGroup;
 			children = (
@@ -101,8 +122,9 @@
 			children = (
 				9BEA8B051F5B94CA00319E1D /* AppDelegate.swift */,
 				9BEA8B481F5D22E600319E1D /* SplitViewController.swift */,
-				9BEA8B441F5C7EC400319E1D /* ListViewController.swift */,
-				9BEA8B071F5B94CA00319E1D /* DetailRootViewController.swift */,
+				9BA9313B1F63A5760051AE81 /* MenuViewController.swift */,
+				9B13C8BE1F68681E00F98557 /* Generic Controllers */,
+				9B13C8BF1F68687D00F98557 /* Extensions */,
 				9BEA8B0C1F5B94CA00319E1D /* Assets.xcassets */,
 				9BEA8B0E1F5B94CA00319E1D /* LaunchScreen.storyboard */,
 				9BEA8B111F5B94CA00319E1D /* Info.plist */,
@@ -261,7 +283,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9BEA8B081F5B94CA00319E1D /* DetailRootViewController.swift in Sources */,
+				9BA9313A1F63A11D0051AE81 /* String+Extensions.swift in Sources */,
+				9BA9313C1F63A5760051AE81 /* MenuViewController.swift in Sources */,
+				9BEA8B081F5B94CA00319E1D /* SingleLabelViewController.swift in Sources */,
 				9BEA8B061F5B94CA00319E1D /* AppDelegate.swift in Sources */,
 				9BEA8B451F5C7EC400319E1D /* ListViewController.swift in Sources */,
 				9BEA8B491F5D22E600319E1D /* SplitViewController.swift in Sources */,

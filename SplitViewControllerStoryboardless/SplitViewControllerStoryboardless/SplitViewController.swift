@@ -9,88 +9,80 @@
 import Foundation
 import UIKit
 
+// MARK: Show view controller on detail controller
+
 class SplitViewController: UISplitViewController {
     /// Shows a new view controller in the UISplitViewController's detail view's navigation stack.
     /// If the sender is in the master view, replace the detail stack.
     /// If the sender is in the detail view, append to the detail stack.
-    override func showNewDetailViewController(_ vc: UIViewController, sender: UIViewController?) {
-        guard let masterNavigationController = masterViewController as? UINavigationController else {
-            // Should never happen,
+    override func showOnDetailController(_ vc: UIViewController, sender: UIViewController?) {
+        guard let masterNavigationController = masterController as? UINavigationController else {
+            // Should not happen. There should always be a master navigation controller.
             showDetailViewController(vc, sender: sender)
             return
         }
         
-        // Check whether the sender is the master view
-        let masterSender: Bool = masterViewController == sender || masterNavigationController.topViewController == sender
-        
-        // If we're collapsed, then the topViewController of the masterNavigationController *can* be the detail navigation controller (but only if details are being shown)
-        let detailNavigationController = (detail123ViewController ?? masterNavigationController.topViewController) as? UINavigationController
-        
-        if let detailNavigationController = detailNavigationController {
-            if masterSender {
-                // Replace the detail stack if the sender is the master view
+        if let detailNavigationController = detailController as? UINavigationController {
+            let isSenderFromMaster = masterController == sender
+                || masterNavigationController.topViewController == sender
+
+            if isSenderFromMaster {
+                // Replace the detail navigation stack.
                 detailNavigationController.setViewControllers([vc], animated: false)
             } else {
+                // Append to the detail navigation stack.
                 detailNavigationController.show(vc, sender: sender)
             }
         } else {
-            // If there's no detail nav controller we always create one. It will get collapsed into the master view controller if we're in collapsed mode
+            // If there's no detail navigation stack, create one.
             showDetailViewController(UINavigationController(rootViewController: vc), sender: sender)
         }
     }
 }
 
-extension UISplitViewController {
-    var masterViewController: UIViewController? {
-        return viewControllers.first
-    }
-    
-    // rename to detailNavigationController?
-    var detail123ViewController: UIViewController? { // can't call this "detailViewController" b/c it overrides one of Apple's variable name.
-//        return viewControllers.count > 1 ? viewControllers.last : nil
-        
-        if viewControllers.count > 1 {
-            return viewControllers.last
-        } else if let masterNavigationController = masterViewController as? UINavigationController, isCollapsed, masterNavigationController.viewControllers.count > 1 {
-            // The masterNavigationController's topViewController *can* be the detail navigation controller
-            // If there is ONLY MASTER: this will give masterNavigationController.
-            // If there is BOTH MASTER & DETAIL, this will give detailNavigationController
-            
-            return masterNavigationController.topViewController
+extension UIViewController {
+    func showOnDetailController(_ vc: UIViewController, sender: UIViewController?) {
+        if let splitController = splitViewController as? SplitViewController {
+            splitController.showOnDetailController(vc, sender: sender)
         }
-        return nil
-
     }
 }
 
-class MasterNavigationController: UINavigationController {
-    override func separateSecondaryViewController(for splitViewController: UISplitViewController) -> UIViewController? {
-        
-        print("************************")
-        print("self:")
-        print(viewControllers)
-        let bottomNavController = viewControllers.last as? UINavigationController
-        print("bottom nav controller's stack:")
-        print(bottomNavController?.viewControllers)
-        
-        // By default this method pops and returns the view controller on the top of its navigation stack.
-        // 
-        if viewControllers.count > 1
-            && viewControllers.last is UINavigationController
-            || viewControllers.last is DetailRootViewController {
+// MARK: Get master and detail controller
 
-            return viewControllers.popLast()
+extension UISplitViewController {
+    var masterController: UIViewController? {
+        return viewControllers.first
+    }
+    
+    var detailController: UIViewController? {
+        if viewControllers.count > 1 {
+            // Occurs when the split view controller *is not* collapsed, and both the master and detail view controllers exist.
+            return viewControllers.last
+        } else if let masterNavigationController = masterController as? UINavigationController, isCollapsed, masterNavigationController.viewControllers.count > 1 {
+            // When the split view controller is collapsed, the detail controller will be masterNavigationController.topViewController.
+            return masterNavigationController.topViewController
         } else {
+            // Should not happen. There should always be a master controller and a detail controller.
             return nil
         }
     }
 }
 
+// MARK: Separate detail controller
 
-extension UIViewController {
-    func showNewDetailViewController(_ vc: UIViewController, sender: UIViewController?) {
-        if let splitController = splitViewController as? SplitViewController {
-            splitController.showNewDetailViewController(vc, sender: sender)
+class MasterNavigationController: UINavigationController {
+    // When uncollapsing the MasterNavigationController (i.e. rotating from portrait to landscape on a phone), this method returns the detail controller.
+    override func separateSecondaryViewController(for splitViewController: UISplitViewController) -> UIViewController? {
+        
+        // This implementation of the detail controller is either a UINavigationController or SingleLabelViewController.
+        // If the the detail controller has been removed, return nil. i.e. when you tap back on the bottommost view controller in detail controller.
+        guard viewControllers.count > 1
+            && (viewControllers.last is UINavigationController || viewControllers.last is SingleLabelViewController) else {
+                return nil
         }
+        
+        // By default, UINavigationController's separateSecondaryViewController pops and returns the top view controller.
+        return viewControllers.popLast()
     }
 }
