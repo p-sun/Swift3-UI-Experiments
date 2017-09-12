@@ -8,7 +8,7 @@
 
 import UIKit
 
-/// A green view controller with a single label centered in the middle.
+/// A reusable green view controller with a single label centered in the middle.
 class SingleLabelViewController: UIViewController {
     private var label = UILabel()
     let text: String
@@ -41,3 +41,5 @@ class SingleLabelViewController: UIViewController {
             ])
     }
 }
+
+extension SingleLabelViewController: DetailSplitViewController {}

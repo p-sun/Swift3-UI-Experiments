@@ -12,19 +12,17 @@ import UIKit
 // MARK: Show view controller on detail controller
 
 class SplitViewController: UISplitViewController {
-    /// Shows a new view controller in the UISplitViewController's detail view's navigation stack.
-    /// If the sender is in the master view, replace the detail stack.
-    /// If the sender is in the detail view, append to the detail stack.
+    /// Shows a new view controller in the split view controller's detail navigation controller.
     override func showOnDetailController(_ vc: UIViewController, sender: UIViewController?) {
-        guard let masterNavigationController = masterController as? UINavigationController else {
-            // Should not happen. There should always be a master navigation controller.
+        guard masterController as? UINavigationController != nil else {
+            // Should not happen. If there's no master navigation controller, attempting to display a detail navigation controller will crash.
             showDetailViewController(vc, sender: sender)
             return
         }
         
         if let detailNavigationController = detailController as? UINavigationController {
             let isSenderFromMaster = masterController == sender
-                || masterNavigationController.topViewController == sender
+                || sender?.isInMasterController == true
 
             if isSenderFromMaster {
                 // Replace the detail navigation stack.
@@ -41,6 +39,11 @@ class SplitViewController: UISplitViewController {
 }
 
 extension UIViewController {
+    var isInMasterController: Bool {
+        let masterNavigationController = splitViewController?.masterController as? UINavigationController
+        return self == masterNavigationController?.topViewController
+    }
+    
     func showOnDetailController(_ vc: UIViewController, sender: UIViewController?) {
         if let splitController = splitViewController as? SplitViewController {
             splitController.showOnDetailController(vc, sender: sender)
@@ -75,10 +78,10 @@ class MasterNavigationController: UINavigationController {
     // When uncollapsing the MasterNavigationController (i.e. rotating from portrait to landscape on a phone), this method returns the detail controller.
     override func separateSecondaryViewController(for splitViewController: UISplitViewController) -> UIViewController? {
         
-        // This implementation of the detail controller is either a UINavigationController or SingleLabelViewController.
+        // Detail controller is either UINavigationController or DetailSplitViewController.
         // If the the detail controller has been removed, return nil. i.e. when you tap back on the bottommost view controller in detail controller.
         guard viewControllers.count > 1
-            && (viewControllers.last is UINavigationController || viewControllers.last is SingleLabelViewController) else {
+            && (viewControllers.last is UINavigationController || viewControllers.last is DetailSplitViewController) else {
                 return nil
         }
         
@@ -86,3 +89,6 @@ class MasterNavigationController: UINavigationController {
         return viewControllers.popLast()
     }
 }
+
+/// All detail view controllers not wrapped in a UINavigationController should conform to this.
+protocol DetailSplitViewController {}

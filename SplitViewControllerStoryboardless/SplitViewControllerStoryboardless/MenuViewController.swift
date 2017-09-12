@@ -12,7 +12,7 @@ import UIKit
 class MenuViewController: ListViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = isMasterController ? "Master Controller" : "Detail Controller"
+        title = isInMasterController ? "Master Controller" : "Detail Controller"
         setCellStates()
     }
     
@@ -38,7 +38,7 @@ class MenuViewController: ListViewController {
             })
         )
         
-        let menuLabel = isMasterController ?
+        let menuLabel = isInMasterController ?
             "Reset detail stack\n\t" + ".showOnDetailController(MenuViewController())":
             "Show controller on detail stack\n\t" + ".showOnDetailController(MenuViewController())"
         cellStates.append(
@@ -53,13 +53,8 @@ class MenuViewController: ListViewController {
 }
 
 private extension UIViewController {
-    var isMasterController: Bool {
-        let masterNavigationController = splitViewController?.masterController as? UINavigationController
-        return self == masterNavigationController?.topViewController
-    }
-    
     var navigationStackCount: Int {
-        let currentSplitController = isMasterController ?
+        let currentSplitController = isInMasterController ?
             splitViewController?.masterController :
             splitViewController?.detailController
         let currentSplitNavigationController = currentSplitController as? UINavigationController

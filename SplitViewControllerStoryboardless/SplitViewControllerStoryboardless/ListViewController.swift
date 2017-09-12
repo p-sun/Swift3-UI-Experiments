@@ -21,6 +21,7 @@ struct CellState {
     }
 }
 
+/// A reusable list that populates a table using [CellState] array.
 class ListViewController: UITableViewController {
     var cellStates: [CellState] = []
     
