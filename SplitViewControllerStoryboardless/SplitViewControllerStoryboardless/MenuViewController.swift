@@ -9,6 +9,11 @@
 import Foundation
 import UIKit
 
+/** A menu demonstrating how to use SplitViewController.
+        - .show(viewController)
+        - .showOnDetailController(viewController).
+    It also displays the current view controller's instance
+*/
 class MenuViewController: ListViewController {
     override func viewDidLoad() {
         super.viewDidLoad()

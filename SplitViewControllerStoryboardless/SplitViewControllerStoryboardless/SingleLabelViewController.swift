@@ -41,5 +41,3 @@ class SingleLabelViewController: UIViewController {
             ])
     }
 }
-
-extension SingleLabelViewController: DetailSplitViewController {}

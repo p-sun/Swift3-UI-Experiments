@@ -26,3 +26,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 }
+
+extension SingleLabelViewController: DetailSplitViewController {}

@@ -83,18 +83,27 @@
 		9B13C8BE1F68681E00F98557 /* Generic Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				9BEA8B071F5B94CA00319E1D /* SingleLabelViewController.swift */,
 				9BEA8B441F5C7EC400319E1D /* ListViewController.swift */,
+				9BEA8B071F5B94CA00319E1D /* SingleLabelViewController.swift */,
 			);
 			name = "Generic Controllers";
 			sourceTree = "<group>";
 		};
-		9B13C8BF1F68687D00F98557 /* Extensions */ = {
+		9B13C8C21F687C5100F98557 /* SplitViewController */ = {
 			isa = PBXGroup;
 			children = (
-				9BA931391F63A11D0051AE81 /* String+Extensions.swift */,
+				9BEA8B481F5D22E600319E1D /* SplitViewController.swift */,
 			);
-			name = Extensions;
+			name = SplitViewController;
+			sourceTree = "<group>";
+		};
+		9B13C8C41F687DE700F98557 /* SplitViewController Usage */ = {
+			isa = PBXGroup;
+			children = (
+				9BEA8B051F5B94CA00319E1D /* AppDelegate.swift */,
+				9BA9313B1F63A5760051AE81 /* MenuViewController.swift */,
+			);
+			name = "SplitViewController Usage";
 			sourceTree = "<group>";
 		};
 		9BEA8AF91F5B94CA00319E1D = {
@@ -120,11 +129,10 @@
 		9BEA8B041F5B94CA00319E1D /* SplitViewControllerStoryboardless */ = {
 			isa = PBXGroup;
 			children = (
-				9BEA8B051F5B94CA00319E1D /* AppDelegate.swift */,
-				9BEA8B481F5D22E600319E1D /* SplitViewController.swift */,
-				9BA9313B1F63A5760051AE81 /* MenuViewController.swift */,
+				9B13C8C41F687DE700F98557 /* SplitViewController Usage */,
 				9B13C8BE1F68681E00F98557 /* Generic Controllers */,
-				9B13C8BF1F68687D00F98557 /* Extensions */,
+				9B13C8C21F687C5100F98557 /* SplitViewController */,
+				9BA931391F63A11D0051AE81 /* String+Extensions.swift */,
 				9BEA8B0C1F5B94CA00319E1D /* Assets.xcassets */,
 				9BEA8B0E1F5B94CA00319E1D /* LaunchScreen.storyboard */,
 				9BEA8B111F5B94CA00319E1D /* Info.plist */,
